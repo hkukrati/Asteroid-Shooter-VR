@@ -63,7 +63,7 @@ After the score has been computed, gameController.updateScore(int score) is call
 
 The user shoots as many asteroids as they can within the 30 second period.
 
-After the timer hits zero (within GameController's Update() method), the game is now over and the gameOver() and enableStartMenu() functions are called within GameController. These functions enable the text objects that tell the user that the game is over and shows them their score. The timer text object is also now disabled. The "Start Game" button is enabled so that the user can shoot this button again to restart the game. 
+After the timer hits zero (within GameController's Update() method), the game is now over and the gameOver() and enableStartMenu() functions are called within GameController. These functions enable the text objects that tell the user that the game is over and shows them their score. The timer text object is also now disabled. The "Start Game" button is enabled so that the user can shoot this button again to restart the game. currentGameStatus = GameState.Gameover;
 
 
 
