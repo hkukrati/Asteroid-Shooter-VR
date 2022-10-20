@@ -24,20 +24,20 @@ The flow of a full game is as follows:
 
 Gamecontroller.cs has currentGameStatus equal to "GameState.Menu". The StartMenu canvas is enabled and the user is able to see the "Start Menu" text object. All other UI menu items (game over text, score, timer etc.) are hidden in this GameState.
 
-To start the game, user shoots at the "Start Menu". Through the XRGrabInteractable script thats attached to the guns, pulling the trigger on the controller to shoot the gun invokes the Activated (ActivateEventArgs) event, which is tied to The LaserGunFired() method in LaserGunScript.cs (also attached to the the gun gameobject). LaserGunFired() generates a raycast that starts at the end of the gun barrel (rayCastorigin, which is a child of the gun object). The StartMenu text object has a UserInterface.cs script attached to it; the transform attached to the hit is checked to see if contains a "UserInterface" script attached to it. If it does, then it means we have shot the Start Menu text object and we should invoke its "shotByGun()" method:
+To start the game, user shoots at the "Start Menu". Through the XRGrabInteractable script thats attached to the guns, pulling the trigger on the controller to shoot the gun invokes the Activated (ActivateEventArgs) event, which is tied to The LaserGunFired() method in LaserGunScript.cs (also attached to the the gun gameobject). LaserGunFired() generates a raycast that starts at the end of the gun barrel (rayCastorigin, which is a child of the gun object). The StartMenu text object has a UserInterface.cs script attached to it; the transform attached to the hit is checked to see if contains a "UserInterface.cs" script attached to it. If it does, then it means we have shot the Start Menu text object and we should invoke its "shotByGun()" method:
 
  else if (hit.transform.GetComponent<UserInterface>()!=null)
             {
                 hit.transform.GetComponent<UserInterface>().shotByGun();
             }
             
-shotByGun() is a function that's present in the UserInterface.cs script. Within shotByGun() is a UnityEvent called onShotByGun. This UnityEvent is invoked, and performs the following actions:
+shotByGun() is a function that's present in the UserInterface.cs script. Within shotByGun() there is a UnityEvent called onShotByGun. This UnityEvent is invoked, and performs the following actions:
  
  - The Canvas prefab that holds the "3, 2, 1" animation is instantiated in the same position as the Start Menu canvas
  - Hide the Start Menu canvas
  - Hide the Game Over and Score text (which be referenced later when the game ends and we want to restart the game)
  
- These actions for the UnityEvent are all set in the Inspector.
+These actions for the UnityEvent are all set in the Inspector.
  
 The "Countdown" canvas is instantiated in the same location as the start menu. The Countdown canvas holds a TextMeshPro object that has an animation attached to it that transitions from "3, 2, 1" with a growing/shrinking effect. CountDownScript.cs is attached to the CountDown canvas prefab and is set to be destroyed after 2 seconds (time it takes for the 3, 2, 1 transition to occur). It has an onDestroy() method, which starts the game by doing the following:
  
